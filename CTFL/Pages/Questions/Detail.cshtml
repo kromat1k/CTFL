@@ -1,0 +1,29 @@
+﻿@page "{questionID:int}"
+@model CTFL.Pages.Questions.DetailModel
+@{
+    ViewData["Title"] = "Detail";
+}
+
+@if (Model.Message != null)
+{
+    <div class="alert alert-success">
+        @Model.Message
+    </div>
+}
+
+<h2>@Model.Question.Text</h2>
+
+<div>
+    <ul class="list-group">
+        @foreach (var answer in Model.Question.Answers)
+        {
+            <li class="list-group-item">@answer</li>
+        }
+    </ul>
+</div>
+<div>
+    Correct Answer: @Model.Question.CorrectAnswer
+</div>
+
+<a asp-page="./List" class="btn btn-default">All Questions</a>
+

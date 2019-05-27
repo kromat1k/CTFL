@@ -1,0 +1,55 @@
+﻿@page
+@model CTFL.Pages.Questions.ListModel
+@{
+    ViewData["Title"] = "List";
+}
+
+<h2>List</h2>
+
+<form method="get">
+    <div class="form-group">
+        <div class="input-group">
+            <input type="search" class="form-control" asp-for="SearchTerm" /> 
+            <span class="input-group-btn">
+                <button class="btn btn-default">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+</form>
+
+<div>
+    <table class="table">
+            @foreach (var question in Model.Questions)
+            {
+                <tr>
+                    <td>@question.ID</td>
+
+                    <td>@question.Text</td>
+
+                    <td>
+                        <ul>
+                            @foreach (var answer in question.Answers)
+                            {
+                                <li>@answer</li>
+                            }
+                        </ul>
+                    </td>
+
+                    <td>@question.CorrectAnswer</td>
+
+                    <td>
+                        <a class="btn btn-lg" asp-page="./Detail" asp-route-questionID=@question.ID>
+                            <i class="glyphicon glyphicon-list"></i>
+                        </a>
+                        <a class="btn btn-lg" asp-page="./Edit" asp-route-questionID=@question.ID>
+                            <i class="glyphicon glyphicon-edit"></i>
+                        </a>
+                    </td>
+                </tr>     
+            }
+
+
+    </table>
+</div>

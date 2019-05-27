@@ -1,0 +1,41 @@
+﻿@page "{questionID:int}"
+@model CTFL.Pages.Questions.EditModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Editing: Question @Model.Question.ID</h2>
+
+<form method="post" id="editQuestionForm">
+    <input type="hidden" asp-for="Question.ID" />
+    <div class="form-group">
+        <label asp-for="Question.Text"></label>
+        <input asp-for="Question.Text" class="form-control" />
+    </div>
+    <div class="form-group" id="answers">
+        @for(int i = 0; i < Model.Question.Answers.Count(); i++)
+        {
+            <label>Answer @(i + 1)</label>
+            <div class="input-group">
+                <input asp-for="@Model.Question.Answers[i]" class="form-control answer-input" />
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-danger" name="action" value="remove-answer-@i">
+                        <i class="glyphicon glyphicon-minus"></i>
+                    </button>
+                </span>
+            </div>
+        }
+    </div>
+
+    <label asp-for="Question.CorrectAnswer">Correct Answer</label>
+    <div class="form-group">
+        @Html.DropDownList("Question.CorrectAnswer", Model.GetAnswersSelectList(Model.Question), new { @class = "form-control", @name = "Question.Text"})
+    </div>
+
+    <button type="submit" class="btn btn-primary" name="action" value="save">Save</button>
+
+    <button type="submit" class="btn btn-success" name="action" value="add-answer">
+        <i class="glyphicon glyphicon-plus"></i>
+    </button>
+</form>
+
